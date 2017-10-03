@@ -16,14 +16,24 @@ public class User {
     private Long id;
 
     @Column(name = "USER_NAME")
-    @Size(max = 20, min = 3, message = "{user.name.invalid}")
-    @NotEmpty(message="Please Enter your name")
+    //@Size(max = 20, min = 3, message = "{user.name.invalid}")
+    //@NotEmpty(message="Please Enter your name")
     private String name;
 
     @Column(name = "USER_EMAIL", unique = true)
-    @Email(message = "{user.email.invalid}")
-    @NotEmpty(message="Please Enter your email")
+    //@Email(message = "{user.email.invalid}")
+    //@NotEmpty(message="Please Enter your email")
     private String email;
+
+    public User() {
+        this.id = 0L;
+    }
+
+    public User(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
