@@ -11,7 +11,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {WebMVCConfig.class, HibernateConfig.class};
+        return new Class[] {MVCConfig.class, HibernateConfig.class};
     }
 
     @Override

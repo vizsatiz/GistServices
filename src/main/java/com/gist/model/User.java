@@ -1,5 +1,6 @@
 package com.gist.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -11,18 +12,19 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "USER_ID")
     private Long id;
 
     @Column(name = "USER_NAME")
-    //@Size(max = 20, min = 3, message = "{user.name.invalid}")
-    //@NotEmpty(message="Please Enter your name")
+    @Size(max = 20, min = 3, message = "{user.name.invalid}")
+    @NotEmpty(message="Please Enter your name")
     private String name;
 
     @Column(name = "USER_EMAIL", unique = true)
-    //@Email(message = "{user.email.invalid}")
-    //@NotEmpty(message="Please Enter your email")
+    @Email(message = "{user.email.invalid}")
+    @NotEmpty(message="Please Enter your email")
     private String email;
 
     public User() {
