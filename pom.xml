@@ -22,6 +22,11 @@
     <servlets.version>3.1.0</servlets.version>
     <jsp.version>2.3.1</jsp.version>
     <hsqldb.version>1.8.0.10</hsqldb.version>
+    <jackson.version>2.4.0</jackson.version>
+    <jaxb-api.version>2.2.11</jaxb-api.version>
+    <jaction.xml.version>2.7.3</jaction.xml.version>
+    <springframework.version>4.3.0.RELEASE</springframework.version>
+    <jackson.version>2.7.5</jackson.version>
   </properties>
 
   <dependencies>
@@ -37,14 +42,20 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>${spring.version}</version>
+      <version>${springframework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
 
     <!-- Spring ORM -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
+      <version>${springframework.version}</version>
     </dependency>
 
     <!-- Hibernate Core -->
@@ -111,9 +122,20 @@
       <version>${hsqldb.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-web</artifactId>
+      <version>2.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+
   </dependencies>
-
-
 
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>

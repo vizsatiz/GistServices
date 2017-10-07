@@ -2,7 +2,7 @@ package com.gist.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class App extends AbstractAnnotationConfigDispatcherServletInitializer
+public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer
 {
     public static void main( String[] args )
     {
@@ -11,12 +11,12 @@ public class App extends AbstractAnnotationConfigDispatcherServletInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {HibernateConfig.class};
+        return new Class[] {MVCConfig.class, HibernateConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {WebMVCConfig.class};
+        return null;
     }
 
     @Override

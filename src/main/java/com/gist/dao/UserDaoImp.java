@@ -16,13 +16,13 @@ public class UserDaoImp implements UserDao{
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         sessionFactory.getCurrentSession().save(user);
+        return user;
     }
 
     @Override
     public List<User> list() {
-        @SuppressWarnings("unchecked")
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
