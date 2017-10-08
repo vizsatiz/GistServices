@@ -1,13 +1,14 @@
 package com.gist.dao;
 
 
+import com.gist.handler.HibernateTransactionHandler;
 import com.gist.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -16,29 +17,26 @@ public class UserDaoImp implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    private HibernateTransactionHandler hibernateTransactionHandler = new HibernateTransactionHandler();
+
     @Override
     public User save(User user) {
-        Transaction transaction = sessionFactory.getCurrentSession().getTransaction();
-        try {
+        return (User) hibernateTransactionHandler.performDBOperationWithRollbackOnError(sessionFactory.getCurrentSession(), () -> {
             sessionFactory.getCurrentSession().save(user);
             return user;
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-            throw e;
-        }
+        });
     }
 
     @Override
-    public List<User> list() {
-        TypedQuery<User> query = sessionFactory.getCurrentSession()
+    public List list() {
+        Query query = sessionFactory.getCurrentSession()
                 .createQuery("from User");
         return query.getResultList();
     }
 
     @Override
-    public List<User> get(Long id) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession()
+    public List get(Long id) {
+        Query query = sessionFactory.getCurrentSession()
                 .createQuery("from User WHERE id = " + id);
         return query.getResultList();
     }
@@ -62,8 +60,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User update(Long id, User user) {
-        Transaction transaction = sessionFactory.getCurrentSession().getTransaction();
-        try {
+        return (User) hibernateTransactionHandler.performDBOperationWithRollbackOnError(sessionFactory.getCurrentSession(), () -> {
             User dbValue = sessionFactory.getCurrentSession().get(User.class, id);
             if (dbValue != null) {
                 dbValue.setUsername(user.getUsername() != null ? user.getUsername() : dbValue.getUsername());
@@ -72,12 +69,9 @@ public class UserDaoImp implements UserDao {
                 sessionFactory.getCurrentSession().flush();
                 return dbValue;
             }
+
             return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-            throw e;
-        }
+        });
     }
 
 }

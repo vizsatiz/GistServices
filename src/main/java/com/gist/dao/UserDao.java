@@ -8,9 +8,9 @@ public interface UserDao {
 
     User save(User user);
 
-    List<User> list();
+    List list();
 
-    List<User> get(Long id);
+    List get(Long id);
 
     Long delete(Long id);
 

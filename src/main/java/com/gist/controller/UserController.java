@@ -51,7 +51,6 @@ public class UserController extends GistBaseController {
 
     @PutMapping("/users/{id}")
     public ResponseEntity put(@PathVariable Long id, @RequestBody User user) {
-        // user.setId(id);
         User updatedUser = userService.update(id, user);
         if (updatedUser == null) {
             return handleRecordNotFound();
