@@ -3,12 +3,14 @@ package com.gist.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "TBL_USERS")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -18,23 +20,34 @@ public class User {
     private Long id;
 
     @Column(name = "USER_NAME")
-    @Size(max = 20, min = 3, message = "{user.name.invalid}")
-    @NotEmpty(message="Please Enter your name")
-    private String name;
+    @NotNull
+    @NotEmpty
+    @Size(max = 20, min = 3, message = "{USER_NAME_INVALID}")
+    private String username;
 
-    @Column(name = "USER_EMAIL", unique = true)
-    @Email(message = "{user.email.invalid}")
-    @NotEmpty(message="Please Enter your email")
-    private String email;
+    @Column(name = "USER_MOBILE", unique = true)
+    @NotNull
+    @NotEmpty
+    @Size(max = 10, min = 10, message = "{USER_NAME_INVALID}")
+    private String mobile;
+
+    @Column(name = "USER_PROFILE_PIC_URL", unique = true)
+    private String profilePicUrl;
+
+    @Column(name = "USER_LEVEL")
+    private int level;
+
+    @Column(name = "USER_LOCATION")
+    private String location;
 
     public User() {
-        this.id = 0L;
+
     }
 
-    public User(Long id, String name, String email) {
+    public User(Long id, String username, String mobile) {
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.username = username;
+        this.mobile = mobile;
     }
 
     public Long getId() {
@@ -45,20 +58,43 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
+
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
